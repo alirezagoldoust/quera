@@ -1,0 +1,2 @@
+# your .env file should be like this:
+DDJANGO_SECRET_KEY = 'YOUR_DJANGO_PROJECT_SECRET_KEY'
