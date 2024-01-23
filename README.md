@@ -1,2 +1,2 @@
-# Wellcome to QueraQuestion documentaion
+# Welcome to QueraQuestion documentaion
 this project is awesome!
