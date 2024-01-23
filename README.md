@@ -1,2 +1,2 @@
-# Wellcome to Quera question asking documentaion
-this project 
+# Wellcome to QueraQuestion documentaion
+this project is awesome!
