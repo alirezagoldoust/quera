@@ -85,7 +85,7 @@ local_settings.py
 
 
 # My Files
-# .env
+.env
 db.sqlite3
 \.vscode/
 \static/
@@ -94,3 +94,4 @@ db.sqlite3
 db.sqlite3
 todo.txt
 file3.py
+todo
