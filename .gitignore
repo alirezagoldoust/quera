@@ -90,6 +90,7 @@ db.sqlite3
 \.vscode/
 \static/
 \staticfiles/
+uploaded_files/
 
 db.sqlite3
 todo.txt
