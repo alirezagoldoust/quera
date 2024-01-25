@@ -69,3 +69,8 @@ This request requires Athentication, and you should specify the source of questi
 ```
 (delete):api/question/delete/?source=teacher&id=30
 ```
+## More detail about program structure
+For generating title of questions (and answer for gpt asked questions) I used OpenAI API.<br>
+To use that service you should put your OPENAI_API_KEY in .env file.<br>
+If you are running the project in Iran it's likely to face ConnectionError using this service :)<br>
+But you can test the service in google colab notebook.<br>
