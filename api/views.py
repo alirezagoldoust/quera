@@ -43,7 +43,7 @@ class Signup(APIView):
 
 
 def ai_generate_title(question_text):
-    client = openai.OpenAI(secret['OPENAI_API_KEY'])
+    client = openai.OpenAI(api_key=secret['OPENAI_API_KEY'])
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[ {"role": "user", "content": f"لطفا یه این متن عنوانی در حد جند کلمه نسبت بده : {question_text}"} ]
@@ -52,7 +52,7 @@ def ai_generate_title(question_text):
 
 
 def ai_generate_answer(question_text):
-    client = openai.OpenAI(secret['OPENAI_API_KEY'])
+    client = openai.OpenAI(api_key=secret['OPENAI_API_KEY'])
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[ {"role": "user", "content": question_text}]
@@ -79,7 +79,7 @@ class AddQuestion(APIView):
             return Response({'problem' : 'problem name does not exist or invalid!'}, status=status.HTTP_400_BAD_REQUEST)
         
         # generating title for question
-        data['title'] = ai_generate_title(data['question_tex'])
+        data['title'] = ai_generate_title(data['question_text'])
 
         # adding user id
         data['user'] = request.user.id
@@ -89,7 +89,6 @@ class AddQuestion(APIView):
             serializer = TeacherQuestionSerializer(data=data)
         elif data['source'] == 'qgpt':
             data['answer'] = ai_generate_answer(data['question_text'])
-
             serializer = QGPTQuestionSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
