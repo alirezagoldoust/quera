@@ -8,6 +8,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import MultiPartParser
 from .serializer import UserSerializer, TeacherQuestionSerializer, QGPTQuestionSerializer
 from .models import Problem, TeacherQuestion, QGPTQuestion
+import openai
+from dotenv import dotenv_values
+secret = dotenv_values()
+
 
 """
 This file consists of function views
@@ -38,12 +42,30 @@ class Signup(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+def ai_generate_title(question_text):
+    client = openai.OpenAI(secret['OPENAI_API_KEY'])
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[ {"role": "user", "content": f"لطفا یه این متن عنوانی در حد جند کلمه نسبت بده : {question_text}"} ]
+    )
+    return response.choices[0].message.content
+
+
+def ai_generate_answer(question_text):
+    client = openai.OpenAI(secret['OPENAI_API_KEY'])
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[ {"role": "user", "content": question_text}]
+    )
+    return response.choices[0].message.content
+
 class AddQuestion(APIView):
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
     def post(self, request):
         # taking posted data
         data = request.data.dict()
+
         # checking source of question validation
         if not data.get('source'):
             return Response({'source' : 'this field is required!'}, status=status.HTTP_400_BAD_REQUEST)
@@ -57,7 +79,7 @@ class AddQuestion(APIView):
             return Response({'problem' : 'problem name does not exist or invalid!'}, status=status.HTTP_400_BAD_REQUEST)
         
         # generating title for question
-        data['title'] = 'title' + str(datetime.datetime.now())
+        data['title'] = ai_generate_title(data['question_tex'])
 
         # adding user id
         data['user'] = request.user.id
@@ -66,6 +88,8 @@ class AddQuestion(APIView):
         if data['source'] == 'teacher':
             serializer = TeacherQuestionSerializer(data=data)
         elif data['source'] == 'qgpt':
+            data['answer'] = ai_generate_answer(data['question_text'])
+
             serializer = QGPTQuestionSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
