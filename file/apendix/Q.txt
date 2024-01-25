@@ -1,9 +1,0 @@
-karaye dirooz to ba APIView ham mishe zad?
-too django mishe string response kard?
-token har nafar unique? ba har bar login avaz mishe?
-mishe ba rest ham response html be ?
-http only in cookies
-table messge ha ke sender dare va receiver va payam haie sendero mikhaim
-
-Issue tracker 
-PEP8 Standard
