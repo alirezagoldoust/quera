@@ -1,11 +1,11 @@
 # Welcome to QueraQuestion documentation!
 This project is back-end implementation of [Quera.org](https://quera.org/) question asking software.<br>
-It was written with python-django and REST framewrok and also JWT for Authentication.<br>
+It was written with python-django and REST framewrok.<br>
 ## How to use:
 Befor you start using the project you need to:<br>
 1.create virtual environment and install [requirements.txt](https://github.com/alirezagoldoust/quera/blob/cff1aa4aadd1f406cf30d3dcd466e19dd335cbe1/requirements.txt)<br>
 2.create your own .env file that the contents should be like [sample_env](https://github.com/alirezagoldoust/quera/blob/492f4972471234f2245d2a7465f39b5d9a012857/sample_env).<br>
-Also the database is postgres.<br><br>
+Also the database is PostgreSQL.<br><br>
 In order to use the project better, befor use you can run [init.py](https://github.com/alirezagoldoust/quera/blob/9dd166e2ed2258254c589347a0ef0631e5f612aa/init.py) file to add a sample data to your database.
 Also you can add [postman_collection](https://github.com/alirezagoldoust/quera/blob/08d1dfe36a0f667e67dd4e17d966f5ec99332021/Quera.postman_collection.json) requests to your postman in order to have sample requests.<br><br>
 The program can be used with authentication, so you should create account befor use it.
@@ -72,8 +72,9 @@ This request requires Athentication, and you should specify the source of questi
 (delete):api/question/delete/?source=teacher&id=30
 ```
 ## More detail about program structure
-The Q-GPT asked questions and teacher asked questions are saved in two seprated table models in api app.<br><br>
+The Q-GPT asked questions and teacher asked questions are saved in two seprated table models in api app. It's good to mention that the used database is PostgreSQL.<br><br>
 The media uploaded from users will be saved in a folder called 'uploaded_files'.<br><br>
+Authentication of the program is perform by RESTframework_simpleJWT and the provided access_tokens are valid for 30 Minutes.<br><br>
 For generating title of questions (and answer for gpt asked questions) I used OpenAI API. To use that service you should put your OPENAI_API_KEY in your .env file.<br>
 And if you are running the project in Iran it's likely to face ConnectionError while using this service :) but you can test the function view that uses service in google colab notebook.<br><br>
 Hope you enjoy it ;)
