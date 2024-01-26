@@ -78,6 +78,11 @@ class AddQuestion(APIView):
         except:
             return Response({'problem' : 'problem name does not exist or invalid!'}, status=status.HTTP_400_BAD_REQUEST)
         
+        # checking question_text not be empty
+        if not data.get('question_text'):
+            return Response({'question_text' : 'this field is required!'}, status=status.HTTP_400_BAD_REQUEST)
+
+        
         # generating title for question
         data['title'] = ai_generate_title(data['question_text'])
 
@@ -88,7 +93,7 @@ class AddQuestion(APIView):
         if data['source'] == 'teacher':
             serializer = TeacherQuestionSerializer(data=data)
         elif data['source'] == 'qgpt':
-            data['answer'] = ai_generate_answer(data['question_text'])
+            data['answer_text'] = ai_generate_answer(data['question_text'])
             serializer = QGPTQuestionSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
