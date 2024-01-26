@@ -76,6 +76,6 @@ The Q-GPT asked questions and teacher asked questions are saved in two seprated 
 The media uploaded from users will be saved in a folder called 'uploaded_files'.<br><br>
 Authentication of the program is perform by RESTframework_simpleJWT and the provided access_tokens are valid for 30 Minutes.<br><br>
 For generating title of questions (and answer for gpt asked questions) I used OpenAI API. To use that service you should put your OPENAI_API_KEY in your .env file.<br>
-And if you are running the project in Iran it's likely to face ConnectionError while using this service :) but you can test the function view that uses service in google colab notebook.<br><br>
+And if you are running the project in Iran it's likely to face ConnectionError while using this service :) so if you use [shekan](https://shecan.ir/) DNS it will be solved.<br><br>
 Hope you enjoy it ;)
 
